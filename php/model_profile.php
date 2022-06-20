@@ -15,9 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 function dashboard($collection){
 try{
     
-    $myObj = $_SESSION['profileData'];
-    //global $redis;
-    //$myObj = $redis->get('profileData');
+    //$myObj = $_SESSION['profileData'];
+    global $redis;
+    $myObj = $redis->get('profileData');
     echo $myObj;
     
     

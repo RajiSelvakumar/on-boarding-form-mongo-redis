@@ -55,9 +55,9 @@ try{
             $result = $collection->findOne($qry);
             $myJSON = json_encode($result);
             //print_r($myJSON);
-            $_SESSION['profileData'] = $myJSON;
-            //global $redis;
-            //$redis->set('profileData',$myJSON);
+            //$_SESSION['profileData'] = $myJSON;
+            global $redis;
+            $redis->set('profileData',$myJSON);
               echo json_encode(['status' => 'success']);
         }else{
             echo 'update failure';

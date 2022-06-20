@@ -22,9 +22,9 @@ try{
 
     $qry = array("email" => $email, "password" => $password);
     $result = $collection->findOne($qry);
-    $_SESSION['profileData'] = json_encode($result);
-    //global $redis;
-    //$redis->set('profileData',json_encode($result));
+    //$_SESSION['profileData'] = json_encode($result);
+    global $redis;
+    $redis->set('profileData',json_encode($result));
     if($result == null){
         echo json_encode(['status' => 'error']);
     }else{
