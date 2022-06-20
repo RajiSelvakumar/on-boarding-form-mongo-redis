@@ -2,7 +2,7 @@
 require '../vendor/autoload.php';  
 //session_start();
 try {
-    $redis = new Predis\Client();
+    $redis = new Predis\Client('tcp://10.58.174.11:6479');
     $redis->connect('redis-18861.c263.us-east-1-2.ec2.cloud.redislabs.com',18861);
     //$redis->connect('tls://redis-9f6095f3-of5ff6e31.database.cloud.ovh.net', 20185);
 
