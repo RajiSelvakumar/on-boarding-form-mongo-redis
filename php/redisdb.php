@@ -8,7 +8,6 @@ try {
 
     
       //$redis->auth(['redisUser', '3FAKExSW6Rez9Xw0admB']);
-      //echo "redis connected successfully";
       //$redis = new Redis();
       $redis->connect('127.0.0.1', 6379);
       echo "redis connected successfully";
