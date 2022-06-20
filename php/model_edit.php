@@ -6,7 +6,7 @@ header('Content-Type: plain/text');
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Methods,Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization, X-Requested-With");
 
 include_once("../php/db.php");
-include_once("../php/redisdb.php");
+//include_once("../php/redisdb.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
@@ -55,9 +55,9 @@ try{
             $result = $collection->findOne($qry);
             $myJSON = json_encode($result);
             //print_r($myJSON);
-            //$_SESSION['profileData'] = $myJSON;
-            global $redis;
-            $redis->set('profileData',$myJSON);
+            $_SESSION['profileData'] = $myJSON;
+            //global $redis;
+            //$redis->set('profileData',$myJSON);
               echo json_encode(['status' => 'success']);
         }else{
             echo 'update failure';
