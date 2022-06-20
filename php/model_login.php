@@ -6,7 +6,7 @@ header('Content-Type: plain/text');
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Methods,Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization, X-Requested-With");
 
 include_once("../php/db.php");
-//include_once("../php/redisdb.php");
+include_once("../php/redisdb.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
@@ -22,9 +22,9 @@ try{
 
     $qry = array("email" => $email, "password" => $password);
     $result = $collection->findOne($qry);
-    $_SESSION['profileData'] = json_encode($result);
-    //global $redis;
-    //$redis->set('profileData',json_encode($result));
+    //$_SESSION['profileData'] = json_encode($result);
+    global $redis;
+    $redis->set('profileData',json_encode($result));
     if($result == null){
         echo json_encode(['status' => 'error']);
     }else{

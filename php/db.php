@@ -1,6 +1,6 @@
 <?php
 require '../vendor/autoload.php';  
-session_start();
+//session_start();
 try {
     //$conn = new MongoDB\Client("mongodb://localhost:27017"); 
     $conn = new MongoDB\Client('mongodb+srv://rajeswari:HtKkAf7vSagwdmLW@cluster0.czx0a5q.mongodb.net/mydb');
