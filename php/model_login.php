@@ -5,8 +5,9 @@ header('Access-Control-Allow-Credentials: true');
 header('Content-Type: plain/text');
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Methods,Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization, X-Requested-With");
 
-include_once("../php/db.php");
-include_once("../php/redisdb.php");
+require("../php/db.php");
+require("../php/redisdb.php");
+require("../php/encrypt.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
@@ -16,22 +17,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 function login($collection){
 try{
+    global $redis;
+
     if(isset($_POST['email']) && isset($_POST['password'])){
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-
-    $qry = array("email" => $email, "password" => $password);
-    $result = $collection->findOne($qry);
-    //$_SESSION['profileData'] = json_encode($result);
-    global $redis;
+    $encrypted_email = encrypt($email);
+    $qry = array("email" => $encrypted_email, "password" => $password);
+    $result = $collection->findOne($qry);  
     $redis->set('profileData',json_encode($result));
     if($result == null){
         echo json_encode(['status' => 'error']);
     }else{
         $pass = $result["password"];
+        $encrypted_email = $result["email"];
         if($password === $pass){
+            $decrypt_email = decrypt($encrypted_email);
+            //print_r("Decrypted email" . $decrypt_email);
             echo json_encode(['status' => 'success']);
-        } 
+        }        
+        
     }
       
     }

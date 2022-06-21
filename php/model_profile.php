@@ -5,8 +5,9 @@ header('Access-Control-Allow-Credentials: true');
 header('Content-Type: plain/text');
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Methods,Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization, X-Requested-With");
 
-include_once("../php/db.php");
-include_once("../php/redisdb.php");
+require("../php/db.php");
+require("../php/redisdb.php");
+require("../php/encrypt.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
@@ -14,23 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 function dashboard($collection){
 try{
-    
-    //$myObj = $_SESSION['profileData'];
     global $redis;
-    $myObj = $redis->get('profileData');
-    echo $myObj;
+    $profileJson = $redis->get('profileData');
+    $profileObj = json_decode($profileJson);
     
     
-    /*$myObj = new stdClass();
-    $myObj->fname = $_SESSION['fname'];
-    $myObj->lname = $_SESSION['lname'];
-    $myObj->email = $_SESSION['email'];
-    $myObj->date = $_SESSION['date'];
-    $myObj->contact = $_SESSION['contact'];
-    $myObj->password = $_SESSION['password'];
+    $myObj = new stdClass();
+    $myObj->fname = $profileObj->fname;
+    $myObj->lname = $profileObj->lname;
+    $decrypted_email = decrypt($profileObj->email);
+    $myObj->email = $decrypted_email;
+    $myObj->date = $profileObj->date;
+    $myObj->contact = $profileObj->contact;
+    $myObj->password = $profileObj->password;
     $myJSON = json_encode($myObj);
     echo $myJSON;
-    $_SESSION['profileData'] = $myJSON;  */ 
 }catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
