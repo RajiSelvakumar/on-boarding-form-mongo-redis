@@ -20,7 +20,7 @@ function registerUser($collection){
         $email = trim($_POST['email']);
         $contact = trim($_POST['contact']);
         $date = trim($_POST['date']);
-        $password = password_hash($_POST['password'],PASSWORD_DEFAULT);  
+        $password = trim($_POST['password']);  
         
         
             $Query = $collection->insertOne([
