@@ -20,7 +20,7 @@ try{
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    $qry = array("email" => $email, "password" => password_hash($password));
+    $qry = array("email" => $email, "password" => password_hash($password,PASSWORD_DEFAULT));
     $result = $collection->findOne($qry);
     //$_SESSION['profileData'] = json_encode($result);
     global $redis;
@@ -29,7 +29,8 @@ try{
         echo json_encode(['status' => 'error']);
     }else{
         $pass = $result["password"];
-        if($password === $pass){
+        if(password_verify($pass,$password)){
+        //if($password === $pass){
             echo json_encode(['status' => 'success']);
         } 
     }
