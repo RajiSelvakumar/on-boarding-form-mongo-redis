@@ -3,8 +3,8 @@ require '../vendor/autoload.php';
 //session_start();
 try {
     $redis = new Predis\Client();
-    $redis->connect('redis-18861.c263.us-east-1-2.ec2.cloud.redislabs.com:18861');
-    $redis->auth(['redisUser', '3FAKExSW6Rez9Xw0admB']);
+    $redis->connect('redis-13641.c92.us-east-1-3.ec2.cloud.redislabs.com:13641');
+    $redis->auth(['redis', 'zbkbuY3f65W4lGZwsGdKWAvAwrkFNwyg']);
     //$redis->connect('tls://redis-9f6095f3-of5ff6e31.database.cloud.ovh.net', 20185);
 
     
