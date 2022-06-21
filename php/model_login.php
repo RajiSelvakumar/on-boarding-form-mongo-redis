@@ -20,7 +20,7 @@ try{
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    $qry = array("email" => $email, "password" => $password);
+    $qry = array("email" => $email, "password" => password_hash($password));
     $result = $collection->findOne($qry);
     //$_SESSION['profileData'] = json_encode($result);
     global $redis;
